@@ -4,6 +4,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const cors = require('cors');
 
 const { mongoose } = require('./database') //adding db
 
@@ -13,6 +14,7 @@ app.set('port', process.env.PORT || 3000); //En producción, pilla el puerto def
 //  middlewares
 app.use(morgan('dev'));//
 app.use(express.json());//get and understand json files
+app.use(cors({origin: 'http://localhost:4200'}));
 
 //  Routes
 app.use('/api/artists',require('./routes/artists.routes'))
@@ -21,4 +23,3 @@ app.use('/api/artists',require('./routes/artists.routes'))
 app.listen(app.get('port'),()=>{
     console.log('Server on port',app.get('port'));
 })
-//
